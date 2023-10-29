@@ -1,34 +1,40 @@
 from flask import Flask
-from pymongo.mongo_client import MongoClient
 from flask_login import LoginManager
+from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
 
-# link to mongodb
-db_uri = "mongodb+srv://ypeng24:CPSC1280@cluster0.aie0apy.mongodb.net/?retryWrites=true&w=majority"
-client = MongoClient(db_uri)
-db = client['tireder_db']
-user_collection = db['users']
+# connect to mongodb
+load_dotenv()
+DB_URI = os.getenv('DB_URI')
+DB_NAME = os.getenv('DB_NAME')
+client = MongoClient(DB_URI)
+db = client[DB_NAME]
+user_collection = db["users"]
 
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'CPSC1280'
-    app.config['MONGODB_SETTINGS'] = {
-        'db': 'tireder_db',
-        'host': db_uri
-    }
-
-    login_manager = LoginManager()
-    login_manager.login_view = 'auth.login'
-    login_manager.init_app(app)
-
-    @login_manager.user_loader
-    def load_user(uid):
-        return user_collection.find_one({"id": uid})
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
     from .views import views
     from .auth import auth
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
+
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+
+    from .models import User
+
+    @login_manager.user_loader
+    def load_user(uid):
+        user = user_collection.find_one({"id": uid})
+        if user:
+            return User.from_dict(user)
+        else:
+            return None
 
     return app

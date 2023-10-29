@@ -19,6 +19,7 @@ def login():
             # check if password is correct
             if check_password_hash(user['password'], password):
                 flash('Logged in successfully!', category='success')
+                user = User.from_dict(user)
                 login_user(user, remember=True)
                 return redirect(url_for('views.home'))
             else:
@@ -26,14 +27,14 @@ def login():
         else:
             flash('Username does not exist.', category='error')
 
-    return render_template("login.html", text="text")
+    return render_template("login.html", user=current_user)
 
 
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return render_template("logout.html")
+    return redirect(url_for('auth.login'))
 
 
 @auth.route('/signup', methods=['GET', 'POST'])
@@ -57,9 +58,9 @@ def signup():
         else:
             # Add user to database
             new_user = User(username=username, password=generate_password_hash(password1, method='pbkdf2:sha256'))
-            user_collection.insert_one(new_user.__to_dict__())
+            user_collection.insert_one(new_user.to_dict())
             flash('Account created!', category='success')
             login_user(new_user, remember=True)
             return redirect(url_for('views.home'))
 
-    return render_template("signup.html")
+    return render_template("signup.html", user=current_user)
