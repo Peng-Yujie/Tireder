@@ -11,6 +11,8 @@ DB_NAME = os.getenv('DB_NAME')
 client = MongoClient(DB_URI)
 db = client[DB_NAME]
 user_collection = db["users"]
+# TODO
+records = db["records"]
 
 
 def create_app():
@@ -27,7 +29,7 @@ def create_app():
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
-    from .models import User
+    from tireder.services.models import User
 
     @login_manager.user_loader
     def load_user(uid):

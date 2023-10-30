@@ -1,3 +1,21 @@
 {% extends "base.html" %}
 {% block title %}HomePage{% endblock %}
-{% block content %}<h1>I'm so fxxking tired!</h1>{% endblock %}
+{% block content %}
+<h1>I'm so fxxking tired!</h1>
+<ul class="list-group list-group-flush" id="records">
+<!--  TODO-->
+  {% for record in records %}
+  <li class="list-group-item">
+    {{ record }}
+  </li>
+  {% endfor %}
+</ul>
+<form method="POST">
+  <textarea name="tiredness" id="tiredness" class="form-control"></textarea>
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-primary">I am tired</button>
+  </div>
+</form>
+
+{% endblock %}
