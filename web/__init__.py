@@ -6,21 +6,18 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
 
-# connect to mongodb
+# Connect to mongodb
 load_dotenv()
-DB_URI = os.getenv('DB_URI')
-DB_NAME = os.getenv('DB_NAME')
+DB_URI = os.getenv('DB_URI')  # Replace with your connection string
+DB_NAME = os.getenv('DB_NAME')  # Replace with your DB name
 client = MongoClient(DB_URI)
 db = client[DB_NAME]
-user_collection = db["users"]
-# Test json
-users = db["users_json"]
-records = db["records"]
+users = db["users_json"]  # Replace with your collection name
 
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')  # Replace with your secret key
 
     from .views import views
     from .auth import auth

@@ -2,20 +2,50 @@
 {% block title %}HomePage{% endblock %}
 {% block content %}
 <h1>I'm so fxxking tired!</h1>
+
+<!--TODO: format adding records-->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#recordModal">
+                Add Record
+            </button>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="recordModal" tabindex="-1" role="dialog" aria-labelledby="recordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="recordModalLabel">Add Record</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="recordForm" method="POST">
+                    <div class="form-group">
+                        <label for="tiredlevel" class="form-label">Example range</label>
+                        <input type="range" class="form-range" min="1" max="3" id="tiredlevel" name="tiredlevel">
+                        <br />
+                        <label for="notes">Tiredness:</label>
+                        <input type="text" class="form-control" id="tiredness" name="notes">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <ul class="list-group list-group-flush" id="records">
 <!--TODO: format records-->
-  {% for record in records %}
+  {% for record in records[::-1] %}
   <li class="list-group-item">
     {{ record }}
   </li>
   {% endfor %}
 </ul>
-<form method="POST">
-  <textarea name="tiredness" id="tiredness" class="form-control"></textarea>
-  <br />
-  <div align="center">
-    <button type="submit" class="btn btn-primary">I am tired</button>
-  </div>
-</form>
 
 {% endblock %}

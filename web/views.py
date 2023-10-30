@@ -12,11 +12,15 @@ views = Blueprint('views', __name__)
 def home():
     # When user submits a form
     if request.method == 'POST':
-        # find user in users and then store the tiredness record in the user's records
-        tiredness = request.form.get('tiredness')
+        # Find user in users and then store the record into the user's records
+        tiredlevel = request.form.get('tiredlevel')
+        notes = request.form.get('notes')
+        # tiredness = request.form.get('tiredness')
         time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         new_entry = {
-            "tiredness": tiredness,
+            # "tiredness": tiredness,
+            "tiredlevel": tiredlevel,
+            "notes": notes,
             "time": time
         }
         # Update the user's records
