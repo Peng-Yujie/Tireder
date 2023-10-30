@@ -34,15 +34,6 @@ def create_app():
 
     from tireder.services.models import User
 
-    """
-    @login_manager.user_loader
-    def load_user(uid):
-        user = user_collection.find_one({"id": uid})
-        if user:
-            return User.from_dict(user)
-        else:
-            return None
-    """
     @login_manager.user_loader
     def load_user(uid):
         try:
@@ -53,6 +44,5 @@ def create_app():
                 return None
         except InvalidId:
             return None
-
 
     return app
