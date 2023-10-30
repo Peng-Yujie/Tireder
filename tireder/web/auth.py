@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, url_for, redirect
 from flask_login import login_user, login_required, logout_user, current_user
-from . import user_collection
+from . import users
 from tireder.services.models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -14,18 +14,20 @@ def login():
         password = request.form.get('password')
 
         # check if username exists in database
-        user = user_collection.find_one({"username": username})
-        if user:
+        user_json = users.find_one({"username": username})
+        if user_json:
             # check if password is correct
-            if check_password_hash(user['password'], password):
+            if check_password_hash(user_json['password'], password):
                 flash('Logged in successfully!', category='success')
-                user = User.from_dict(user)
+                user = User(user_json)
                 login_user(user, remember=True)
                 return redirect(url_for('views.home'))
             else:
                 flash('Incorrect password, try again.', category='error')
         else:
+            # if username does not exist, redirect to signup page
             flash('Username does not exist.', category='error')
+            return redirect(url_for('auth.signup'))
 
     return render_template("login.html", user=current_user)
 
@@ -39,14 +41,13 @@ def logout():
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
-    # TODO: send data to database
     if request.method == 'POST':
         username = request.form.get('username')  # Gets the username from the form
         password1 = request.form.get('password1')  # Gets the password from the form
         password2 = request.form.get('password2')
 
         # check if username exists in database
-        user = user_collection.find_one({"username": username})
+        user = users.find_one({"username": username})
         if user:
             flash('Username already exists.', category='error')
         elif len(username) < 2:
@@ -56,9 +57,14 @@ def signup():
         elif len(password1) < 8:
             flash('Password must be at least 8 characters.', category='error')
         else:
-            # Add user to database
-            new_user = User(username=username, password=generate_password_hash(password1, method='pbkdf2:sha256'))
-            user_collection.insert_one(new_user.to_dict())
+            # Add new user to database
+            user_json = {
+                "username": username,
+                "password": generate_password_hash(password1, method='pbkdf2:sha256'),
+                "records": []
+            }
+            users.insert_one(user_json)
+            new_user = User(user_json)
             flash('Account created!', category='success')
             login_user(new_user, remember=True)
             return redirect(url_for('views.home'))

@@ -1,3 +1,5 @@
+from bson import ObjectId
+from bson.errors import InvalidId
 from flask import Flask
 from flask_login import LoginManager
 from pymongo import MongoClient
@@ -11,7 +13,8 @@ DB_NAME = os.getenv('DB_NAME')
 client = MongoClient(DB_URI)
 db = client[DB_NAME]
 user_collection = db["users"]
-# TODO
+# Test json
+users = db["users_json"]
 records = db["records"]
 
 
@@ -31,6 +34,7 @@ def create_app():
 
     from tireder.services.models import User
 
+    """
     @login_manager.user_loader
     def load_user(uid):
         user = user_collection.find_one({"id": uid})
@@ -38,5 +42,17 @@ def create_app():
             return User.from_dict(user)
         else:
             return None
+    """
+    @login_manager.user_loader
+    def load_user(uid):
+        try:
+            user_json = users.find_one({"_id": ObjectId(uid)})
+            if user_json:
+                return User(user_json)
+            else:
+                return None
+        except InvalidId:
+            return None
+
 
     return app
