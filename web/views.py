@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 from . import users
 from datetime import datetime
+from services.utils import get_week_and_day, generate_wall
 
 views = Blueprint('views', __name__)
 
@@ -13,14 +14,14 @@ def home():
     # When user submits a form
     if request.method == 'POST':
         # Find user in users and then store the record into the user's records
-        tiredlevel = request.form.get('tiredlevel')
-        notes = request.form.get('notes')
-        # tiredness = request.form.get('tiredness')
-        time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        add_notes = request.form.get('notes')
+        tired_level = request.form.get('tired_level')
+        date = datetime.now().strftime("%Y-%m-%d")
+        time = datetime.now().strftime("%H:%M:%S")
         new_entry = {
-            # "tiredness": tiredness,
-            "tiredlevel": tiredlevel,
-            "notes": notes,
+            "tired_level": tired_level,
+            "add_notes": add_notes,
+            "date": date,
             "time": time
         }
         # Update the user's records
@@ -32,5 +33,10 @@ def home():
     # Get the user's records
     user = users.find_one({"_id": ObjectId(current_user.get_id())})
     records = user["records"]
+    # for record in records:
+    #     # if date exists, print it, otherwise print "No date"
+    #     print(record.get("date", "No date"))
+    # Generate a contribution wall
+    wall = generate_wall(records)
 
-    return render_template("home.html", user=current_user, records=records)
+    return render_template("home.html", user=current_user, records=records, wall=wall)
