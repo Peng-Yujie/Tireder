@@ -33,10 +33,8 @@ def home():
     # Get the user's records
     user = users.find_one({"_id": ObjectId(current_user.get_id())})
     records = user["records"]
-    # for record in records:
-    #     # if date exists, print it, otherwise print "No date"
-    #     print(record.get("date", "No date"))
-    # Generate a contribution wall
+
+    # Generate a tiredness wall
     wall = generate_wall(records)
 
     return render_template("home.html", user=current_user, records=records, wall=wall)

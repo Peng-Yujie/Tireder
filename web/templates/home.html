@@ -8,7 +8,17 @@
     {% for row in wall %}
         <div class="week-row">
             {% for col in row %}
-                <div class="{% if col=='X' %}grid-item active{% else %}grid-item{% endif %}"></div>
+                <div class="
+                {% if col == 0 %}
+                    grid-item
+                {% elif col <= 1 %}
+                    grid-item low
+                {% elif col <= 2 %}
+                    grid-item medium
+                {% else %}
+                    grid-item high
+                {% endif %}
+                "></div>
             {% endfor %}
         </div>
     {% endfor %}

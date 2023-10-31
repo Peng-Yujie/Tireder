@@ -25,9 +25,14 @@
                     height: 15px;
                     background-color: lightgray; /* Default color for no activity */
                 }
-                /* You can set different colors for different activity levels */
-                .grid-item.active {
+                .grid-item.low {
                     background-color: green; /* Change color for active blocks */
+                }
+                .grid-item.medium {
+                    background-color: yellow; /* Change color for active blocks */
+                }
+                .grid-item.high {
+                    background-color: red; /* Change color for active blocks */
                 }
         </style>
         <title>{% block title %}Home{% endblock %}</title>
