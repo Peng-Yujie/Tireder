@@ -1,6 +1,7 @@
 from flask_login import UserMixin
 from datetime import datetime
-from services.utils import get_week_and_day
+# from .utils import get_week_and_day
+from .utils import get_brick_index, get_year_week_day
 
 
 class User(UserMixin):
@@ -82,25 +83,26 @@ class Brick:
 
 
 class Wall:
-    def __init__(self, bricks, this_date=datetime.now()):
-        self.week_number, self.day_of_week = get_week_and_day(this_date)
+    def __init__(self, bricks):
         self.wall_list = [['lightgrey' for _ in range(52)] for _ in range(7)]
         self.build_wall(bricks)
 
-    def build_wall(self, bricks):
+    def build_wall(self, bricks, this_date=datetime.now()):
+        this_year, this_week, this_day = get_year_week_day(this_date)
         # Assign the level of the day to the item in the wall
         for date, brick_json in bricks.items():
-            brick_week, brick_day = get_week_and_day(date)
-            self.wall_list[brick_day][self.week_number - brick_week] = brick_json.get('color', 'lightgrey')
-
+            # brick_week, brick_day = get_week_and_day(date)
+            # self.wall_list[brick_day][self.week_number - brick_week] = brick_json.get('color', 'lightgrey')
+            row, col = get_brick_index(date, this_year, this_week)
+            # jump the brick if it's out of range
+            if row < 0 or row > 6 or col < 0 or col > 51:
+                continue
+            self.wall_list[row][col] = brick_json.get('color', 'lightgrey')
         # Fill the remaining days of the last week with ' '
-        remaining_days = 6 - self.day_of_week
-        for i in range(remaining_days):
-            self.wall_list[self.day_of_week + i + 1][0] = ' '
+        for day in range(this_day + 1, 7):
+            self.wall_list[day][0] = ' '
 
         # for w_row in self.wall_list:
         #     for w_col in w_row:
         #         print(w_col, end=' ')
         #     print()
-
-
