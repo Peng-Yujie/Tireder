@@ -9,11 +9,11 @@
         <div class="week-row">
             {% for col in row %}
                 <div class="
-                {% if col == 0 %}
+                {% if col == 'lightgrey' or col == ' ' %}
                     grid-item
-                {% elif col <= 1 %}
+                {% elif col == 'green' %}
                     grid-item low
-                {% elif col <= 2 %}
+                {% elif col == 'yellow' %}
                     grid-item medium
                 {% else %}
                     grid-item high
@@ -51,8 +51,8 @@
                         <label for="tired_level" class="form-label">Example range</label>
                         <input type="range" class="form-range" min="1" max="3" id="tired_level" name="tired_level">
                         <br />
-                        <label for="notes">Tiredness:</label>
-                        <input type="text" class="form-control" id="tiredness" name="notes">
+                        <label for="add_notes">Tiredness:</label>
+                        <input type="text" class="form-control" id="add_notes" name="add_notes">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
