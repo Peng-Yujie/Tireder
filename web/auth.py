@@ -61,7 +61,8 @@ def signup():
             user_json = {
                 "username": username,
                 "password": generate_password_hash(password1, method='pbkdf2:sha256'),
-                "records": []
+                "records": [],
+                "bricks": {}
             }
             users.insert_one(user_json)
             new_user = User(user_json)
