@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 from web import users
 from datetime import datetime
-from .models import Brick, Wall
+from services.models import Brick, Wall
 
 views = Blueprint('views', __name__)
 
@@ -54,7 +54,6 @@ def home():
     bricks = user.get("bricks", {})
 
     # Generate a tiredness wall
-    # wall = generate_wall(records)
     wall = Wall(bricks).wall_list
 
     return render_template("home.html", user=current_user, records=records, wall=wall)

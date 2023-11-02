@@ -4,26 +4,25 @@
 <h1>I'm so fxxking tired!</h1>
 
 <!-- Print Wall -->
+<!-- TODO: Display other content if there is no record -->
 <div class="grid-container">
-<!--    {% if records %}-->
-        {% for row in wall %}
-            <div class="week-row">
-                {% for col in row %}
-                    <div class="
-                    {% if col == 'lightgrey' or col == ' ' %}
-                        grid-item
-                    {% elif col == 'green' %}
-                        grid-item low
-                    {% elif col == 'yellow' %}
-                        grid-item medium
-                    {% else %}
-                        grid-item high
-                    {% endif %}
-                    "></div>
-                {% endfor %}
-            </div>
-        {% endfor %}
-<!--    {% endif %}-->
+    {% for row in wall %}
+        <div class="week-row">
+            {% for col in row %}
+                <div class="
+                {% if col == 'lightgrey' or col == ' ' %}
+                    grid-item
+                {% elif col == 'green' %}
+                    grid-item low
+                {% elif col == 'yellow' %}
+                    grid-item medium
+                {% else %}
+                    grid-item high
+                {% endif %}
+                "></div>
+            {% endfor %}
+        </div>
+    {% endfor %}
 </div>
 
 
