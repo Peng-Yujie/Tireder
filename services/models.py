@@ -1,7 +1,16 @@
+import openai
 from flask_login import UserMixin
 from datetime import datetime
-# from .utils import get_week_and_day
 from .utils import get_brick_index, get_year_week_day
+from config import OPENAI_API_KEY, OPENAI_MODEL
+
+
+"""OPENAI"""
+openai.api_key = OPENAI_API_KEY
+openai_model = OPENAI_MODEL
+
+
+"""USER"""
 
 
 class User(UserMixin):
@@ -106,3 +115,45 @@ class Wall:
         #     for w_col in w_row:
         #         print(w_col, end=' ')
         #     print()
+
+
+"""CHATBOT"""
+
+
+class Chat:
+    def __init__(self, chat_history=None):
+        if chat_history is None:
+            self.conversation = [
+                {
+                    "role": "bot",
+                    "text": "Hello, I am your personal assistant. I am here to help you with your daily life. What can I do for you?",
+                },
+            ]
+        else:
+            self.conversation = chat_history
+
+    def __repr__(self):
+        # return a representation of the chat
+        return f"[Chat: {self.conversation}]"
+
+    def get_ai_response(self, user_in=None):
+        if user_in is None or len(user_in) == 0:
+            return "I'm sorry, I don't understand."
+
+        self.conversation.append({
+            "role": "user",
+            "text": user_in,
+        })
+
+        reply = openai.ChatCompletion.create(
+            model=openai_model,
+            messages=self.conversation,
+            max_tokens=1000
+        )
+
+        reply_text = reply.choices[0]['message']['content']
+        self.conversation.append({
+            "role": "bot",
+            "text": reply_text
+        })
+        return reply_text

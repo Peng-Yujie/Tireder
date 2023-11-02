@@ -1,10 +1,9 @@
 from bson import ObjectId
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
-from . import users
+from web import users
 from datetime import datetime
-# from services.utils import generate_wall
-from services.models import Brick, Wall
+from .models import Brick, Wall
 
 views = Blueprint('views', __name__)
 

@@ -3,24 +3,22 @@ from bson.errors import InvalidId
 from flask import Flask
 from flask_login import LoginManager
 from pymongo import MongoClient
-from dotenv import load_dotenv
-import os
+from config import SECRET_KEY, DB_URI, DB_NAME
+# from flask_socketio import SocketIO
 
-# Connect to mongodb
-load_dotenv()
-DB_URI = os.getenv('DB_URI')  # Replace with your connection string
-DB_NAME = os.getenv('DB_NAME')  # Replace with your DB name
 client = MongoClient(DB_URI)
 db = client[DB_NAME]
-users = db["users_json"]  # Replace with your collection name
+users = db["users_json"]
 
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')  # Replace with your secret key
+    app.config['SECRET_KEY'] = SECRET_KEY
+    # socketio = SocketIO(app)
 
-    from .views import views
-    from .auth import auth
+    from services.views import views
+    from services.auth import auth
+    # from services.chatbot import chatbot
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')

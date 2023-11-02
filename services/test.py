@@ -28,7 +28,6 @@ print(f"Index of the date {given_date}: {index}")
 
 # def get_bricks(records):
 #     # Find the tiredness level for each date
-#     # TODO: improve the algorithm based on average tiredness level and number of records
 #     bricks = {}
 #
 #     for record in records:
