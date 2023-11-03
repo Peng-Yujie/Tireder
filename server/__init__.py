@@ -12,11 +12,11 @@ users = db["users_json"]
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, template_folder='../web_client/templates')
     app.config['SECRET_KEY'] = SECRET_KEY
 
-    from services.views import views
-    from services.auth import auth
+    from server.views import views
+    from server.auth import auth
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
@@ -25,7 +25,7 @@ def create_app():
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
-    from services.models import User
+    from server.models import User
 
     @login_manager.user_loader
     def load_user(uid):

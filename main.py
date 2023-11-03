@@ -1,6 +1,11 @@
-from web import create_app
+from server import create_app
+# from flask_socketio import SocketIO
 
-app = create_app()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    server_app = create_app()
+
+    # socketio = SocketIO(server_app)
+    # socketio.run(server_app, debug=True)
+
+    server_app.run(debug=True)
