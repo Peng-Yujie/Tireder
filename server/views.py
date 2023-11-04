@@ -56,4 +56,12 @@ def home():
     # Generate a tiredness wall
     wall = Wall(bricks).wall_list
 
-    return render_template("home.html", user=current_user, records=records, wall=wall)
+    return render_template('home.html', user=current_user, records=records, wall=wall)
+
+
+@views.route('/chat')
+@login_required
+def chat():
+    user_id = current_user.get_id()
+    user_name = users.find_one({"_id": ObjectId(user_id)}).get("username", "My friend")
+    return render_template("chatbot.html", user=current_user, name=user_name)

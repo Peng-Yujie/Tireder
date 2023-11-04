@@ -6,7 +6,7 @@ With a simple interface, Tireder helps you easily log daily feelings to gain ins
 ## Overview
 **Tireder**, your daily tiredness tracker, is an application to help users measure their stress and tiredness levels.
 Once registered, users can log in to submit their current feeling and have access to their past records.
-Tireder also provides a real-time chat bot to assist users in managing their stress. This project is developed using Python, MongoDB, JSON and Socket.
+Tireder also provides a real-time chatbot to assist users in managing their stress. This project is developed using Python, MongoDB, JSON and Socket.
 
 ## Features
 1. User Registration and Authentication:

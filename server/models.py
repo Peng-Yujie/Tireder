@@ -4,11 +4,9 @@ from datetime import datetime
 from .utils import get_brick_index, get_year_week_day
 from config import OPENAI_API_KEY, OPENAI_MODEL
 
-
 """OPENAI"""
 openai.api_key = OPENAI_API_KEY
 openai_model = OPENAI_MODEL
-
 
 """USER"""
 
@@ -18,7 +16,7 @@ class User(UserMixin):
         self.user_json = user_json
 
     def get_id(self):
-        object_id = self.user_json.get("_id")
+        object_id = self.user_json.get('_id', None)
         return str(object_id)
 
 
@@ -120,38 +118,43 @@ class Wall:
 """CHATBOT"""
 
 
+# GREET = [
+#             {
+#                 "role": "bot",
+#                 "text": "Hello, I am your personal assistant. I am here to help you with your daily life. What can I do for you?",
+#             },
+#         ]
+
+
 class Chat:
-    def __init__(self, chat_history=None):
-        if chat_history is None:
-            self.conversation = [
-                {
-                    "role": "bot",
-                    "text": "Hello, I am your personal assistant. I am here to help you with your daily life. What can I do for you?",
-                },
-            ]
-        else:
-            self.conversation = chat_history
+    def __init__(self):
+        self.conversation = [
+            {
+                "role": "bot",
+                "text": "Hello, I am your personal assistant. I am here to help you with your daily life. What can I do for you?",
+            }
+        ]
 
     def __repr__(self):
         # return a representation of the chat
         return f"[Chat: {self.conversation}]"
 
-    def get_ai_response(self, user_in=None):
+    def get_ai_response(self, user_in: str = None):
         if user_in is None or len(user_in) == 0:
-            return "I'm sorry, I don't understand."
+            return 'I\'m sorry, I don\'t understand.'
 
         self.conversation.append({
             "role": "user",
             "text": user_in,
         })
 
-        reply = openai.ChatCompletion.create(
-            model=openai_model,
-            messages=self.conversation,
-            max_tokens=1000
-        )
-
-        reply_text = reply.choices[0]['message']['content']
+        # reply = openai.ChatCompletion.create(
+        #     model=openai_model,
+        #     messages=self.conversation,
+        #     max_tokens=1000
+        # )
+        # reply_text = reply.choices[0]['message']['content']
+        reply_text = "I'm sorry, I don't understand."
         self.conversation.append({
             "role": "bot",
             "text": reply_text

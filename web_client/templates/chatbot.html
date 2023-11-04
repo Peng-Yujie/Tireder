@@ -1,5 +1,26 @@
 {% extends "base.html" %}
-{% block title %}Logout{% endblock %}
+{% block title %}Take it easy{% endblock %}
 {% block content %}
-I am a chatbot
+<div class="ChatWindow">
+
+    <div class="ChatItem ChatItem--customer">
+        <div class="ChatItem-meta">
+            <div class="ChatItem-avatar">
+                <img class="ChatItem-avatarImage" src="static/img/openai.png">
+            </div>
+        </div>
+        <div class="ChatItem-chatContent">
+            <div class="ChatItem-chatText">Hi, {{ name }}!</div>
+            <div class="ChatItem-timeStamp"><strong>Chat Bot</strong></div>
+        </div>
+    </div>
+
+    <div class="ChatInput is-hidey">
+        <div class="ChatInput-input" contenteditable="true" placeholder="Escribe tu mensaje..."></div>
+    </div>
+</div>
 {% endblock %}
+
+<!--{% block scripts %}-->
+
+<!--{% endblock %}-->
