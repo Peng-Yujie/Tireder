@@ -5,12 +5,20 @@
 
 <!-- Print Wall -->
 <!-- TODO: Display other content if there is no record -->
-<div class="grid-container">
-    {% for row in wall %}
+<div class="wall-container">
+    <small>
+        {% if records is not none %}
+        {{ records|length }} records in your tired year
+        {% else %}
+        No record yet
+        {% endif %}
+    </small>
+    <div class="wall-bricks">
+        {% for row in wall %}
         <div class="week-row">
             {% for col in row %}
-                <div class="
-                {% if col == 'lightgrey' or col == ' ' %}
+            <div class="grid-item brick" style="background-color: {{col}}"></div>
+            <!-- {% if col == 'lightgrey' or col == ' ' %}
                     grid-item
                 {% elif col == 'green' %}
                     grid-item low
@@ -18,11 +26,19 @@
                     grid-item medium
                 {% else %}
                     grid-item high
-                {% endif %}
-                "></div>
+                {% endif %} -->
             {% endfor %}
         </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
+    <div class="wall-explanation">
+        <small>Less</small>
+        <div class="grid-item" style="background-color: #FAF04D"></div>
+        <div class="grid-item" style="background-color: #FFC002"></div>
+        <div class="grid-item" style="background-color: #F79218"></div>
+        <div class="grid-item" style="background-color: #6b4323"></div>
+        <small>More</small>
+    </div>
 </div>
 
 
@@ -37,7 +53,8 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="recordModal" tabindex="-1" role="dialog" aria-labelledby="recordModalLabel" aria-hidden="true">
+<div class="modal fade" id="recordModal" tabindex="-1" role="dialog" aria-labelledby="recordModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -64,7 +81,7 @@
 
 
 <!--TODO: format chatbot button-->
-<br/>
+<br />
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12">
@@ -75,13 +92,53 @@
     </div>
 </div>
 
-<ul class="list-group list-group-flush" id="records">
 <!--TODO: format records-->
-  {% for record in records[::-1] %}
-  <li class="list-group-item">
-    {{ record }}
-  </li>
-  {% endfor %}
-</ul>
+<div class="record-container">
+    {% if records[-1].get('date') == today %}
+        <div class="record-today">
+            <h3 class="record-title diving-line">
+                <span class="record-title">Today</span>
+            </h3>
+            <div class="record-content">
+                {% for record in records[::-1] %}
+                    {% if record.get('date') == today %}
+                        <div class="record-item">
+                            <h5 class="record-tired-level">Tiredness: {{ record.get('tired_level') }}</h5>
+                            <small class="record-time">{{ record.get('time') }}</small>
+                        </div>
+                        {% if record.get('add_notes') %}
+                            <div class="record-tired-notes">
+                                {{ record.get('add_notes') }}
+                            </div>
+                        {% endif %}
+                        <br />
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="record-past">
+        <h3 class="record-title diving-line">
+            <span class="record-title">More</span>
+        </h3>
+        <div class="record-content">
+            {% for record in records[::-1] %}
+                {% if record.get('date') != today %}
+                    <div class="record-item">
+                        <h5 class="record-tired-level">Tiredness: {{ record.get('tired_level') }}</h5>
+                        <small class="record-time">{{ record.get('date') }}</small>
+                    </div>
+                    {% if record.get('add_notes') %}
+                        <div class="record-tired-notes">
+                            {{ record.get('add_notes') }}
+                        </div>
+                    {% endif %}
+                    <br />
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
 
 {% endblock %}
