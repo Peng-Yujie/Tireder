@@ -24,7 +24,7 @@ class Brick:
     def __init__(self, record_count=0, record_value=0):
         self.record_count = record_count
         self.record_sum = record_value
-        self.color = 'lightgrey'
+        self.color = '#EBEDF0'
 
     def update(self, tired_level):
         self.record_count += 1
@@ -33,15 +33,20 @@ class Brick:
 
     def get_brick_color(self):
         if self.record_count == 0 or self.record_sum == 0:
-            return 'lightgrey'
+            return '#EBEDF0'
         else:
-            rank = self.record_sum / self.record_count  # TODO: Change this to a better algorithm
-            if rank < 3:
-                return 'green'
+            #  Determine the color of the brick based on the average tired level and the number of records
+            rank = 0.5 * self.record_sum / self.record_count + self.record_count * 0.5
+            if rank == 0:
+                return '#EBEDF0'
+            elif rank < 3:
+                return '#FAF04D'
+            elif rank < 4:
+                return '#FFC002'
             elif rank < 5:
-                return 'yellow'
+                return '#F79218'
             else:
-                return 'red'
+                return '#6b4323'
 
     def to_json(self):
         return {
@@ -55,7 +60,7 @@ class Brick:
         record_count = brick_json.get('record_count', 0)
         record_sum = brick_json.get('record_sum', 0)
         brick = Brick(record_count, record_sum)
-        brick.color = brick_json.get('color', 'lightgrey')
+        brick.color = brick_json.get('color', '#EBEDF0')
         return brick
 
     # def __init__(self, brick_json):
@@ -91,7 +96,7 @@ class Brick:
 
 class Wall:
     def __init__(self, bricks):
-        self.wall_list = [['lightgrey' for _ in range(52)] for _ in range(7)]
+        self.wall_list = [['#EBEDF0' for _ in range(52)] for _ in range(7)]
         self.build_wall(bricks)
 
     def build_wall(self, bricks, this_date=datetime.now()):
@@ -104,7 +109,7 @@ class Wall:
             # jump the brick if it's out of range
             if row < 0 or row > 6 or col < 0 or col > 51:
                 continue
-            self.wall_list[row][col] = brick_json.get('color', 'lightgrey')
+            self.wall_list[row][col] = brick_json.get('color', '#EBEDF0')
         # Fill the remaining days of the last week with ' '
         for day in range(this_day + 1, 7):
             self.wall_list[day][0] = ' '

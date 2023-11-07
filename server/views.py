@@ -1,5 +1,5 @@
 from bson import ObjectId
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request,redirect, url_for
 from flask_login import login_required, current_user
 from server import users
 from datetime import datetime
@@ -47,16 +47,18 @@ def home():
                 {"_id": ObjectId(current_user.get_id())},
                 {"$set": {"bricks": bricks}}
             )
+        return redirect(url_for('views.home'))
 
     # Get the user's records
     user = users.find_one({"_id": ObjectId(current_user.get_id())})
     records = user.get("records", [])
     bricks = user.get("bricks", {})
+    today = datetime.now().strftime("%Y-%m-%d")
 
     # Generate a tiredness wall
     wall = Wall(bricks).wall_list
 
-    return render_template('home.html', user=current_user, records=records, wall=wall)
+    return render_template('home.html', user=current_user, records=records, wall=wall, today=today)
 
 
 @views.route('/chat')

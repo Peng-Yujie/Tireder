@@ -5,12 +5,18 @@ from server import socketio
 from .models import Chat
 
 chatbot = Blueprint('chatbot', __name__)
-# chat = Chat()
 
+# When user enters the chatbot page, get chat history from database and render the page
+# Scroll to the bottom of the chat history
+# Add a break line after history
+# Start a new chat session
+# If user ends the chat, save the chat history to database, and redirect to home page
 
 @chatbot.route('/chat', methods=['GET', 'POST'])
 @login_required
 def chat_view():
+    user_id = current_user.get_id()
+    user_chat_history = current_user.user_json.get('chat_history', [])  # list of dict
     return render_template("chatbot.html", user=current_user)
 
 
