@@ -4,7 +4,6 @@
 <h1>I'm so fxxking tired!</h1>
 
 <!-- Print Wall -->
-<!-- TODO: Display other content if there is no record -->
 <div class="wall-container">
     <small>
         {% if records is not none %}
@@ -92,31 +91,33 @@
     </div>
 </div>
 
-<!--TODO: format records-->
+<!--TODO: Update records formatting-->
 <div class="record-container">
-    {% if records[-1].get('date') == today %}
-        <div class="record-today">
-            <h3 class="record-title diving-line">
-                <span class="record-title">Today</span>
-            </h3>
-            <div class="record-content">
-                {% for record in records[::-1] %}
-                    {% if record.get('date') == today %}
-                        <div class="record-item">
-                            <h5 class="record-tired-level">Tiredness: {{ record.get('tired_level') }}</h5>
-                            <small class="record-time">{{ record.get('time') }}</small>
-                        </div>
-                        {% if record.get('add_notes') %}
-                            <div class="record-tired-notes">
-                                {{ record.get('add_notes') }}
+    {% if records != [] %}
+        {% if records[-1].get('date') == today %}
+            <div class="record-today">
+                <h3 class="record-title diving-line">
+                    <span class="record-title">Today</span>
+                </h3>
+                <div class="record-content">
+                    {% for record in records[::-1] %}
+                        {% if record.get('date') == today %}
+                            <div class="record-item">
+                                <h5 class="record-tired-level">Tiredness: {{ record.get('tired_level') }}</h5>
+                                <small class="record-time">{{ record.get('time') }}</small>
                             </div>
+                            {% if record.get('add_notes') %}
+                                <div class="record-tired-notes">
+                                    {{ record.get('add_notes') }}
+                                </div>
+                            {% endif %}
+                            <br />
                         {% endif %}
-                        <br />
-                    {% endif %}
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-    {% endif %}
+        {% endif %}
+
 
     <div class="record-past">
         <h3 class="record-title diving-line">
@@ -139,6 +140,7 @@
             {% endfor %}
         </div>
     </div>
-
+    {% endif %}
+</div>
 
 {% endblock %}

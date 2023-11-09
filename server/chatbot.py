@@ -12,6 +12,7 @@ chatbot = Blueprint('chatbot', __name__)
 # Start a new chat session
 # If user ends the chat, save the chat history to database, and redirect to home page
 
+
 @chatbot.route('/chat', methods=['GET', 'POST'])
 @login_required
 def chat_view():
@@ -33,8 +34,14 @@ def chat_view():
 chat = Chat()
 
 
+@socketio.on('connect')
+def handle_connect():
+    print('connected')
+    emit('reply_to', chat.conversation[0]['text'], broadcast=False)
+
+
 @socketio.on('message')
 def handle_message(msg):
-    print(msg)
     print(repr(chat))
+    print(msg)
     emit('reply_to', chat.get_ai_response(msg['data']), broadcast=False)

@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, flash, url_for, redirect
 from flask_login import login_user, login_required, logout_user, current_user
 from server import users
 from .models import User
-# from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 auth = Blueprint('auth', __name__)
 
@@ -16,8 +16,8 @@ def login():
         # check if username exists in database
         user_json = users.find_one({"username": username})
         if user_json:
-            # if check_password_hash(user_json['password'], password):
-            if user_json['password'] == password:
+            if check_password_hash(user_json['password'], password):
+            # if user_json['password'] == password:
                 flash('Logged in successfully!', category='success')
                 user = User(user_json)
                 login_user(user, remember=True)
@@ -60,8 +60,8 @@ def signup():
             # Add new user to database
             user_json = {
                 "username": username,
-                # "password": generate_password_hash(password1, method='pbkdf2:sha256'),
-                "password": password1,
+                "password": generate_password_hash(password1, method='pbkdf2:sha256'),
+                # "password": password1,
                 "records": [],
                 "bricks": {}
             }

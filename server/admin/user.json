@@ -1,0 +1,221 @@
+{
+  "_id": {
+    "$oid": "653f5947d8d7658329a65a4b"
+  },
+  "username": "ypeng24",
+  "password": "pbkdf2:sha256:600000$VELKdT2f5WFozWRO$a701ca59a11b235f5251ecb3be422c3dadb12a5194add4e7fffe42380b825c83",
+  "records": [
+    {
+      "tired_level": "3",
+      "add_notes": "I am tired",
+      "date": "2023-10-30",
+      "time": "20:07:35"
+    },
+    {
+      "tired_level": "2",
+      "add_notes": "I am tired",
+      "date": "2023-10-31",
+      "time": "21:53:20"
+    },
+    {
+      "tired_level": "2",
+      "add_notes": "Why so tired?",
+      "date": "2023-11-02",
+      "time": "21:55:47"
+    },
+    {
+      "tired_level": "2",
+      "add_notes": "I want to sleep",
+      "date": "2023-11-03",
+      "time": "21:59:17"
+    },
+    {
+      "tired_level": "3",
+      "add_notes": "I am tired",
+      "date": "2023-11-05",
+      "time": "00:08:42"
+    },
+    {
+      "tired_level": "3",
+      "add_notes": "Still tired",
+      "date": "2023-11-05",
+      "time": "00:11:07"
+    },
+    {
+      "tired_level": "3",
+      "add_notes": "I was so tired today, however I still worked on my project",
+      "date": "2023-11-06",
+      "time": "21:46:56"
+    },
+    {
+      "tired_level": "2",
+      "add_notes": "why are there so many bricks?",
+      "date": "2023-11-06",
+      "time": "21:52:18"
+    }
+  ],
+  "bricks": {
+    "2023-09-21": {
+      "record_count": {
+        "$numberInt": "4"
+      },
+      "record_sum": {
+        "$numberInt": "12"
+      },
+      "color": "#6b4323"
+    },
+    "2023-10-01": {
+      "record_count": {
+        "$numberInt": "4"
+      },
+      "record_sum": {
+        "$numberInt": "12"
+      },
+      "color": "#F79218"
+    },
+    "2023-10-03": {
+      "record_count": {
+        "$numberInt": "4"
+      },
+      "record_sum": {
+        "$numberInt": "12"
+      },
+      "color": "#F79218"
+    },
+    "2023-10-04": {
+      "record_count": {
+        "$numberInt": "4"
+      },
+      "record_sum": {
+        "$numberInt": "12"
+      },
+      "color": "#FAF04D"
+    },
+    "2023-10-07": {
+      "record_count": {
+        "$numberInt": "4"
+      },
+      "record_sum": {
+        "$numberInt": "12"
+      },
+      "color": "#FAF04D"
+    },
+    "2023-10-11": {
+      "record_count": {
+        "$numberInt": "4"
+      },
+      "record_sum": {
+        "$numberInt": "12"
+      },
+      "color": "#F79218"
+    },
+    "2023-10-12": {
+      "record_count": {
+        "$numberInt": "4"
+      },
+      "record_sum": {
+        "$numberInt": "12"
+      },
+      "color": "#FAF04D"
+    },
+    "2023-10-15": {
+      "record_count": {
+        "$numberInt": "4"
+      },
+      "record_sum": {
+        "$numberInt": "12"
+      },
+      "color": "#6b4323"
+    },
+    "2023-10-17": {
+      "record_count": {
+        "$numberInt": "4"
+      },
+      "record_sum": {
+        "$numberInt": "12"
+      },
+      "color": "#FAF04D"
+    },
+    "2023-10-20": {
+      "record_count": {
+        "$numberInt": "4"
+      },
+      "record_sum": {
+        "$numberInt": "12"
+      },
+      "color": "#F79218"
+    },
+    "2023-10-21": {
+      "record_count": {
+        "$numberInt": "4"
+      },
+      "record_sum": {
+        "$numberInt": "12"
+      },
+      "color": "#6b4323"
+    },
+    "2023-10-24": {
+      "record_count": {
+        "$numberInt": "2"
+      },
+      "record_sum": {
+        "$numberInt": "5"
+      },
+      "color": "#FFC002"
+    },
+    "2023-11-01": {
+      "record_count": {
+        "$numberInt": "2"
+      },
+      "record_sum": {
+        "$numberInt": "4"
+      },
+      "color": "#FAF04D"
+    },
+    "2023-11-02": {
+      "record_count": {
+        "$numberInt": "2"
+      },
+      "record_sum": {
+        "$numberInt": "5"
+      },
+      "color": "#FFC002"
+    },
+    "2023-11-03": {
+      "record_count": {
+        "$numberInt": "3"
+      },
+      "record_sum": {
+        "$numberInt": "8"
+      },
+      "color": "#F79218"
+    },
+    "2023-11-04": {
+      "record_count": {
+        "$numberInt": "2"
+      },
+      "record_sum": {
+        "$numberInt": "5"
+      },
+      "color": "#FFC002"
+    },
+    "2023-11-05": {
+      "record_count": {
+        "$numberInt": "17"
+      },
+      "record_sum": {
+        "$numberInt": "51"
+      },
+      "color": "#6b4323"
+    },
+    "2023-11-06": {
+      "record_count": {
+        "$numberInt": "11"
+      },
+      "record_sum": {
+        "$numberInt": "29"
+      },
+      "color": "#6b4323"
+    }
+  }
+}

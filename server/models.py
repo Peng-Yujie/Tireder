@@ -24,7 +24,7 @@ class Brick:
     def __init__(self, record_count=0, record_value=0):
         self.record_count = record_count
         self.record_sum = record_value
-        self.color = '#EBEDF0'
+        self.color = self.get_brick_color()
 
     def update(self, tired_level):
         self.record_count += 1

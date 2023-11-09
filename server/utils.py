@@ -43,5 +43,3 @@ def get_brick_index(date, this_year, this_week):
 
     return row, col
 
-
-# TODO: define a algorithm to calculate the color of brick of a date
