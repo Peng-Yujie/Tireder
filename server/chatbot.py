@@ -37,7 +37,7 @@ chat = Chat()
 @socketio.on('connect')
 def handle_connect():
     print('connected')
-    emit('reply_to', chat.conversation[0]['text'], broadcast=False)
+    emit('reply_to', chat.conversation[0]['content'], broadcast=False)
 
 
 @socketio.on('message')

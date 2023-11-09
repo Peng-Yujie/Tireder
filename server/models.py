@@ -1,12 +1,11 @@
-import openai
+from openai import OpenAI
 from flask_login import UserMixin
 from datetime import datetime
 from .utils import get_brick_index, get_year_week_day
 from config import OPENAI_API_KEY, OPENAI_MODEL
 
 """OPENAI"""
-openai.api_key = OPENAI_API_KEY
-openai_model = OPENAI_MODEL
+client = OpenAI()
 
 """USER"""
 
@@ -135,8 +134,8 @@ class Chat:
     def __init__(self):
         self.conversation = [
             {
-                "role": "bot",
-                "text": "Hello, I am your personal assistant. I am here to help you with your daily life. What can I do for you?",
+                "role": "assistant",
+                "content": "Hello, I am your personal assistant. I am here to help you with your daily life. What can I do for you?",
             }
         ]
 
@@ -150,18 +149,23 @@ class Chat:
 
         self.conversation.append({
             "role": "user",
-            "text": user_in,
+            "content": user_in,
         })
 
-        # reply = openai.ChatCompletion.create(
-        #     model=openai_model,
-        #     messages=self.conversation,
-        #     max_tokens=1000
-        # )
-        # reply_text = reply.choices[0]['message']['content']
-        reply_text = "I'm sorry, I don't understand."
+        try:
+            reply = client.chat.completions.create(
+                model='gpt-3.5-turbo',
+                messages=self.conversation,
+                max_tokens=256,
+            )
+            print(reply)
+            reply_text = str(reply.choices[0].message.content)
+        except Exception as e:
+            print(e)
+            reply_text = 'I\'m sorry, I don\'t understand.'
+
         self.conversation.append({
-            "role": "bot",
-            "text": reply_text
+            "role": "assistant",
+            "content": reply_text,
         })
         return reply_text
