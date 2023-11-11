@@ -2,6 +2,7 @@
 This file contains the code that will run on the client side.
 References:
 - Chatbot: https://codepen.io/zenworm/pen/KqLNPm
+- Avatars: https://www.flaticon.com/authors/freepik
 */
 
 const $ChatInput = $('.ChatInput-input');
@@ -9,7 +10,7 @@ const $ChatInput = $('.ChatInput-input');
 // Setup socket.io
 var socket = io();
 
-socket.on('connect', ()=> {
+socket.on('connect', () => {
   socket.emit('my event', { data: 'I\'m connected!' });
 });
 
@@ -25,17 +26,18 @@ $ChatInput.keyup(function (e) {
   }
   const msgTime = formatMsgTime();
   const $this = $(this);
-//  console.log($this.html());
+  //  console.log($this.html());
   if (e.which === 13) {
     const msg = $this.html();
     console.log(msg.split('<div>')[0]);
     sendMsg(msg.split('<div>')[0]);
     $this.html('');
     $('.ChatWindow').append(`
-      <div class="ChatItem ChatItem--expert"> 
+      <div class="ChatItem ChatItem--user">
         <div class="ChatItem-meta">
           <div class="ChatItem-avatar">
-            <img class="ChatItem-avatarImage" src="https://randomuser.me/api/portraits/women/0.jpg">
+            <img class="ChatItem-avatarImage" src="${IMG_DIR}bear.png">
+
           </div>
         </div>
         <div class="ChatItem-chatContent">
@@ -45,7 +47,28 @@ $ChatInput.keyup(function (e) {
       </div>
     `);
 
-    return $('.ChatWindow').animate({ scrollTop: $('.ChatWindow').prop('scrollHeight') }, 500);
+    $('.ChatWindow').animate({ scrollTop: $('.ChatWindow').prop('scrollHeight') }, 500);
+
+    setTimeout(() => {
+      $('.ChatWindow').append(`
+      <div class="ChatItem ChatItem--chatbot">
+        <div class="ChatItem-meta">
+          <div class="ChatItem-avatar">
+            <img class="ChatItem-avatarImage" src="${IMG_DIR}buddy.png">
+          </div>
+        </div>
+        <div class="ChatItem-chatContent">
+          <div class="ChatItem-chatText">
+            <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+            <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+            <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+          </div>
+          <div class="ChatItem-timeStamp"><strong>Chatbot</strong> · ${msgTime}</div>
+        </div>
+      </div>
+    `);
+    }, 500);
+    $('.ChatWindow').animate({ scrollTop: $('.ChatWindow').prop('scrollHeight') }, 500);
   }
 });
 
@@ -60,11 +83,16 @@ function sendMsg(msg) {
 
 function replyMsg(msg) {
   const msgTime = formatMsgTime();
-  $('.ChatWindow').append(`
-    <div class="ChatItem ChatItem--user">
+  // Replace the spinner with the reply message
+  const $lastChatbotMsg = $('.ChatItem--chatbot').last();
+  // console.log($lastChatbotMsg);
+  // if not exist, append, else replace
+  if ($lastChatbotMsg.length === 0) {
+    $('.ChatWindow').append(`
+    <div class="ChatItem ChatItem--chatbot">
       <div class="ChatItem-meta">
         <div class="ChatItem-avatar">
-          <img class="ChatItem-avatarImage" src="https://randomuser.me/api/portraits/women/0.jpg">
+          <img class="ChatItem-avatarImage" src="${IMG_DIR}buddy.png">
         </div>
       </div>
       <div class="ChatItem-chatContent">
@@ -73,8 +101,16 @@ function replyMsg(msg) {
         </div>
     </div>
   `);
-  return $('.ChatWindow').animate({ scrollTop: $('.ChatWindow').prop('scrollHeight') }, 500);
+  } else {
+    $lastChatbotMsg.find('.ChatItem-chatText').html(msg);
+    $lastChatbotMsg.find('.ChatItem-timeStamp').html(`<strong>Chatbot</strong> · ${msgTime}`);
+  }
+  $('.ChatWindow').animate({ scrollTop: $('.ChatWindow').prop('scrollHeight') }, 500);
 }
+
+
+//   return $('.ChatWindow').animate({ scrollTop: $('.ChatWindow').prop('scrollHeight') }, 500);
+// }
 
 
 

@@ -1,11 +1,8 @@
-from openai import OpenAI
 from flask_login import UserMixin
 from datetime import datetime
 from .utils import get_brick_index, get_year_week_day
-from config import OPENAI_API_KEY, OPENAI_MODEL
+from server import ai_client
 
-"""OPENAI"""
-client = OpenAI()
 
 """USER"""
 
@@ -62,36 +59,6 @@ class Brick:
         brick.color = brick_json.get('color', '#EBEDF0')
         return brick
 
-    # def __init__(self, brick_json):
-    #     self.brick_json = brick_json
-    #
-    # def update_brick(self, tired_level):
-    #     if 'record_count' in self.brick_json:
-    #         record_count = int(self.brick_json['record_count'])
-    #         self.brick_json['record_count'] = record_count + 1
-    #     else:
-    #         self.brick_json['record_count'] = 1
-    #     if 'record_sum' in self.brick_json:
-    #         record_sum = int(self.brick_json['record_sum'])
-    #         self.brick_json['record_sum'] = record_sum + int(tired_level)
-    #     else:
-    #         self.brick_json['record_sum'] = int(tired_level)
-    #     self.brick_json['color'] = self.get_brick_color()
-    #
-    #     return self.brick_json
-    #
-    # def get_brick_color(self):
-    #     if 'record_count' not in self.brick_json or 'record_sum' not in self.brick_json:
-    #         return 'lightgrey'
-    #     else:
-    #         rank = self.brick_json['record_sum'] / self.brick_json['record_count']
-    #         if rank < 3:
-    #             return 'green'
-    #         elif rank < 5:
-    #             return 'yellow'
-    #         else:
-    #             return 'red'
-
 
 class Wall:
     def __init__(self, bricks):
@@ -122,14 +89,6 @@ class Wall:
 """CHATBOT"""
 
 
-# GREET = [
-#             {
-#                 "role": "bot",
-#                 "text": "Hello, I am your personal assistant. I am here to help you with your daily life. What can I do for you?",
-#             },
-#         ]
-
-
 class Chat:
     def __init__(self):
         self.conversation = [
@@ -146,6 +105,8 @@ class Chat:
     def get_ai_response(self, user_in: str = None):
         if user_in is None or len(user_in) == 0:
             return 'I\'m sorry, I don\'t understand.'
+        else:
+            user_in += ' Answer me in 100 words or less.'
 
         self.conversation.append({
             "role": "user",
@@ -153,10 +114,10 @@ class Chat:
         })
 
         try:
-            reply = client.chat.completions.create(
+            reply = ai_client.chat.completions.create(
                 model='gpt-3.5-turbo',
                 messages=self.conversation,
-                max_tokens=256,
+                max_tokens=128,
             )
             print(reply)
             reply_text = str(reply.choices[0].message.content)

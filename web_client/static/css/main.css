@@ -63,7 +63,7 @@
 }
 
 /* TODO: Add styles for chat*/
-.ChatContainer{
+.ChatContainer {
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -90,7 +90,7 @@
     margin-bottom: 2rem;
 }
 
-.ChatItem--expert {
+.ChatItem--user {
     flex-direction: row-reverse;
 }
 
@@ -103,7 +103,7 @@
     width: 2.5rem;
 }
 
-.ChatItem--expert .ChatItem-meta {
+.ChatItem--user .ChatItem-meta {
     margin-right: 0;
     margin-left: 1rem;
 }
@@ -119,7 +119,7 @@
     height: 2.5rem;
 }
 
-.ChatItem--expert .ChatItem-avatar {
+.ChatItem--user .ChatItem-avatar {
     margin-right: 0;
 }
 
@@ -145,7 +145,7 @@
     color: #666;
 }
 
-.ChatItem--expert .ChatItem-timeStamp {
+.ChatItem--user .ChatItem-timeStamp {
     margin-left: auto;
 }
 
@@ -173,7 +173,7 @@
     background: #6b4323;
 }
 
-.ChatItem--expert .ChatItem-chatText:first-child::before {
+.ChatItem--user .ChatItem-chatText:first-child::before {
     right: -0.4rem;
     left: auto;
     transform: skew(-40deg);
@@ -181,7 +181,7 @@
     box-shadow: 4px 0 4px -1px rgba(0, 0, 0, 0.1);
 }
 
-.ChatItem--expert .ChatItem-chatText {
+.ChatItem--user .ChatItem-chatText {
     margin-left: auto;
     border: 1px solid #dbdbdb;
     background: #F79218;
@@ -255,6 +255,7 @@
     .ChatWindow {
         width: 28rem;
     }
+
     .ChatInput {
         width: 28rem;
     }
@@ -264,6 +265,7 @@
     .ChatWindow {
         width: 32rem;
     }
+
     .ChatInput {
         width: 32rem;
     }
@@ -273,6 +275,7 @@
     .ChatWindow {
         width: 40rem;
     }
+
     .ChatInput {
         width: 40rem;
     }
@@ -282,6 +285,7 @@
     .ChatWindow {
         width: 48rem;
     }
+
     .ChatInput {
         width: 48rem;
     }

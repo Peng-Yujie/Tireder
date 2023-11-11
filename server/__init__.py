@@ -3,8 +3,9 @@ from bson.errors import InvalidId
 from flask import Flask
 from flask_login import LoginManager
 from pymongo import MongoClient
-from config import DB_URI, DB_NAME, SECRET_KEY, TEMPLATE_DIR, STATIC_DIR
+from config import DB_URI, DB_NAME, SECRET_KEY, TEMPLATE_DIR, STATIC_DIR, OPENAI_API_KEY
 from flask_socketio import SocketIO
+from openai import OpenAI
 
 """SOCKETIO"""
 socketio = SocketIO()
@@ -12,6 +13,10 @@ socketio = SocketIO()
 client = MongoClient(DB_URI)
 db = client[DB_NAME]
 users = db["users_json"]
+"""OPENAI"""
+ai_client = OpenAI(
+    api_key=OPENAI_API_KEY
+)
 """"""
 
 
