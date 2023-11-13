@@ -16,16 +16,11 @@
         {% for row in wall %}
         <div class="week-row">
             {% for col in row %}
-            <div class="grid-item brick" style="background-color: {{col}}"></div>
-            <!-- {% if col == 'lightgrey' or col == ' ' %}
-                    grid-item
-                {% elif col == 'green' %}
-                    grid-item low
-                {% elif col == 'yellow' %}
-                    grid-item medium
+                {% if col == ' ' %}
+                    <div class="grid-item brick" style="background-color:unset; border:unset"></div>
                 {% else %}
-                    grid-item high
-                {% endif %} -->
+                    <div class="grid-item brick" style="background-color: {{col}}"></div>
+                {% endif %}
             {% endfor %}
         </div>
         {% endfor %}
