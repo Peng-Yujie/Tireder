@@ -6,12 +6,6 @@ from .models import Chat
 
 chatbot = Blueprint('chatbot', __name__)
 
-# When user enters the chatbot page, get chat history from database and render the page
-# Scroll to the bottom of the chat history
-# Add a break line after history
-# Start a new chat session
-# If user ends the chat, save the chat history to database, and redirect to home page
-
 
 @chatbot.route('/chat', methods=['GET', 'POST'])
 @login_required

@@ -17,7 +17,7 @@ def login():
         user_json = users.find_one({"username": username})
         if user_json:
             if check_password_hash(user_json['password'], password):
-            # if user_json['password'] == password:
+                # if user_json['password'] == password:
                 flash('Logged in successfully!', category='success')
                 user = User(user_json)
                 login_user(user, remember=True)
