@@ -3,6 +3,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 from server import users
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
+from config import ADMIN, ADMIN_PASSWORD
 
 auth = Blueprint('auth', __name__)
 
@@ -12,7 +13,13 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-
+        # check if user is admin
+        if username == ADMIN and password == ADMIN_PASSWORD:
+            flash('Welcome!', category='success')
+            admin_json = users.find_one({"username": ADMIN})
+            admin = User(admin_json)
+            login_user(admin, remember=True)
+            return redirect(url_for('admin.dashboard'))
         # check if username exists in database
         user_json = users.find_one({"username": username})
         if user_json:

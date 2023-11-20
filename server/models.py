@@ -15,6 +15,10 @@ class User(UserMixin):
         object_id = self.user_json.get('_id', None)
         return str(object_id)
 
+    @property
+    def admin(self):
+        return self.user_json.get('admin', False)
+
 
 class Brick:
     def __init__(self, record_count=0, record_value=0):

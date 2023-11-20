@@ -7,6 +7,7 @@ from config import DB_URI, DB_NAME, SECRET_KEY, TEMPLATE_DIR, STATIC_DIR, OPENAI
 from flask_socketio import SocketIO
 from openai import OpenAI
 
+
 """SOCKETIO"""
 socketio = SocketIO()
 """MONGODB"""
@@ -25,10 +26,12 @@ def create_app():
     app.config['SECRET_KEY'] = SECRET_KEY
     socketio.init_app(app)
 
+    from server.admin import admin
     from server.views import views
     from server.auth import auth
     from server.chatbot import chatbot
 
+    app.register_blueprint(admin, url_prefix='/')
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(chatbot, url_prefix='/')
