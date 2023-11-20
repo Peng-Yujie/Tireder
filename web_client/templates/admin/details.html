@@ -1,0 +1,21 @@
+{% block title %}{{ user.username }} Records{% endblock %}
+{% block content %}
+<div class="UserDetails">
+    <table border="1">
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Tired Level</th>
+            <th>Notes</th>
+        </tr>
+        {% for record in records %}
+        <tr class={{user.username}}>
+            <td>{{ record.date }}</td>
+            <td>{{ record.time }}</td>
+            <td>{{ record.tired_level }}</td>
+            <td>{{ record.add_notes }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
