@@ -1,9 +1,12 @@
-.wall-container {
-    width: 100%;
-    overflow: auto;
+.wall-border {
     border: 1px solid #EBEDF0;
     border-radius: 5px;
     padding: 10px;
+}
+
+.wall-container {
+    width: 100%;
+    overflow: auto;
 }
 
 .wall-bricks {
@@ -62,7 +65,6 @@
     color: #DDE0E4;
 }
 
-/* TODO: Add styles for chat*/
 .ChatContainer {
     min-height: 100vh;
     display: flex;
@@ -272,21 +274,14 @@
 }
 
 @media (min-width: 768px) {
+    .container {
+            max-width: 720px;
+        }
     .ChatWindow {
         width: 40rem;
     }
 
     .ChatInput {
         width: 40rem;
-    }
-}
-
-@media (min-width: 992px) {
-    .ChatWindow {
-        width: 48rem;
-    }
-
-    .ChatInput {
-        width: 48rem;
     }
 }

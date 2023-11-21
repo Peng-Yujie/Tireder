@@ -16,13 +16,17 @@
 
 <body>
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFC002;">
+                <span class="navbar-brand">Tireder</span>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
                         <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar">
                         <div class="navbar-nav">
-                                {% if user.is_authenticated %}
+                                {% if user.admin %}
+                                <a class="nav-item nav-link" id="admin" href="/admin">Admin</a>
+                                <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+                                {% elif user.is_authenticated %}
                                 <a class="nav-item nav-link" id="home" href="/">Home</a>
                                 <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
                                 {% else %}
@@ -55,7 +59,7 @@
         {% endif %}
         {% endwith %}
 
-        <div class="container">
+        <div class="container mt-5">
                 {% block content %} {% endblock %}
         </div>
 
