@@ -1,53 +1,45 @@
 {% extends "base.html" %}
 {% block title %}Admin{% endblock %}
 {% block content %}
-<div class="UsersInTotal">
-    <h3>Total User: {{ users_num }}</h3>
-    <p>Total records: {{ records_num }}</p>
-    <p>Total bricks: {{ bricks_num }}</p>
-</div>
 <div class="UsersTable">
-    <h3>Users</h3>
-    <div class="container mt-5">
-    <div class="row">
-        <div class="col-md-12">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#recordModal">
+    <div class="d-flex justify-content-between" style="padding: 0.75rem;">
+        <h3>Total Users: {{ users_num }}</h3>
+        <form>
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#recordModal">
                 Add User
             </button>
+        </form>
+    </div>
+    <div class="modal fade" id="recordModal" tabindex="-1" role="dialog" aria-labelledby="recordModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="recordModalLabel">Add User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="recordForm" action="{{ url_for('admin.add_user')}}"  method="POST">
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" class="form-control" id="username" name="username">
+                            <label for="password">Password:</label>
+                            <input type="text" class="form-control" id="password" name="password">
+                        </div>
+                        <button type="submit" class="btn btn-warning">Submit</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="recordModal" tabindex="-1" role="dialog" aria-labelledby="recordModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="recordModalLabel">Add User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="recordForm" action="{{ url_for('admin.add_user')}}"  method="POST">
-                    <div class="form-group">
-                        <label for="username">Username:</label>
-                        <input type="text" class="form-control" id="username" name="username">
-                        <label for="password">Password:</label>
-                        <input type="text" class="form-control" id="password" name="password">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-    <table border="1">
+    <table class="table table-hover">
         <tr>
             <th>Username</th>
             <th>Records</th>
             <th>Bricks</th>
-            <th>Actions</th>
+            <th></th>
         </tr>
         {% for user in users %}
         <tr>
@@ -55,12 +47,14 @@
             <td>{{ user.records | length }}</td>
             <td>{{ user.bricks | length }}</td>
             <td>
-                <form action="{{ url_for('admin.delete_user', username=user.username) }}" method="post">
-                    <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
-                </form>
-                <form action="{{ url_for('admin.details', username=user.username) }}" method="get">
-                    <button type="submit" class="btn btn-primary">Details</button>
-                </form>
+                <div class="d-flex justify-content-end">
+                    <form action="{{ url_for('admin.details', username=user.username) }}" method="get">
+                        <button type="submit" class="btn btn-light btn-sm">Details</button>
+                    </form>
+                    <form action="{{ url_for('admin.delete_user', username=user.username) }}" method="post">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+                    </form>
+                </div>
             </td>
         </tr>
         {% endfor %}

@@ -4,7 +4,5 @@
   },
   "username": "admin",
   "password": "pbkdf2:sha256:600000$c4xKSQ9LCXV3mYvq$ebc63c3092be9636e1bad7ea04d19f3e88f97fb4a64ba4e3342d6341c1cd409c",
-  "records": [],
-  "bricks": {},
   "admin": true
 }

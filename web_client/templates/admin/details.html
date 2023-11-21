@@ -1,21 +1,29 @@
-{% block title %}{{ user.username }} Records{% endblock %}
+{% extends "base.html" %}
+{% block title %}{{ username }} Records{% endblock %}
 {% block content %}
 <div class="UserDetails">
-    <table border="1">
+    <h2>{{ username }}</h2>
+    <table class="table table-hover">
         <tr>
             <th>Date</th>
             <th>Time</th>
             <th>Tired Level</th>
-            <th>Notes</th>
+<!--            <th>Notes</th>-->
         </tr>
+        {% if records == [] %}
+        <tr>
+            <td colspan="4">No records!</td>
+        </tr>
+        {% else %}
         {% for record in records %}
         <tr class={{user.username}}>
             <td>{{ record.date }}</td>
             <td>{{ record.time }}</td>
             <td>{{ record.tired_level }}</td>
-            <td>{{ record.add_notes }}</td>
+<!--            <td>{{ record.add_notes }}</td>-->
         </tr>
         {% endfor %}
+        {% endif %}
     </table>
 </div>
 {% endblock %}

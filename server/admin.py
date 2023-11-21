@@ -11,9 +11,8 @@ admin = Blueprint('admin', __name__)
 def dashboard():
     print(current_user.admin)
     if current_user.admin:
-        # get all users from the database
-        users_data = users.find({})
-        users_num = users.count_documents({})
+        users_data = users.find({"username": {"$ne": "admin"}})
+        users_num = users.count_documents({"username": {"$ne": "admin"}})
         records_num = 0
         bricks_num = 0
         for user in users.find():
