@@ -26,3 +26,59 @@ Tireder also provides a real-time chatbot to assist users in managing their stre
 6. Database Utilization:
    - Implementation of MongoDB for data storage
    - Use of JSON for data formatting
+
+## Structure
+```
+Tireder/
+│
+├── server/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── auth.py
+│   ├── chatbot.py
+│   ├── models.py
+│   ├── utils.py
+│   └── views.py
+│
+├── web_client/
+│   ├── static/
+│   │   ├── css/
+│   │   ├── img/
+│   │   └── js/
+│   └── templates/
+│       ├── admin/
+│       │   ├── admin.html
+│       │   └── details.html
+│       ├── base.html
+│       ├── chatbot.html
+│       ├── home.html
+│       ├── login.html
+│       ├── logout.html
+│       └── signup.html
+│
+├── config.py
+├── main.py
+├── README.md
+└── requirements.txt
+```
+
+## Getting Started
+To run the application, follow the steps below:
+1. Clone the repository: `git clone https://github.com/Pumbaaxx/Tireder.git`
+2. Install the dependencies: `pip install -r requirements.txt`
+3. The `config.py` file contains the necessary configurations for this project. Modify the file to set your MongoDB URI, OpenAI API key, and necessary variables
+3. Run the application: `python main.py`
+4. Open your browser and go to `http://localhost:5000/`
+
+## References
+APIs:
+- [MongoDB](https://www.mongodb.com/)
+- [Flask](https://flask.palletsprojects.com/en/1.1.x/)
+- [Socket.io](https://socket.io/)
+- [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
+- [OpenAI API](https://beta.openai.com/)
+
+Styling:
+- [Bootstrap](https://getbootstrap.com/)
+- chatbox: [codepen](https://codepen.io/)
+- avatars: [Freepik - Flaticon](https://www.flaticon.com/free-icons/buddy)
