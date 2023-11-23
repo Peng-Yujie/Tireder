@@ -39,11 +39,11 @@ class Brick:
             rank = 0.5 * self.record_sum / self.record_count + self.record_count * 0.5
             if rank == 0:
                 return '#EBEDF0'
-            elif rank < 3:
+            elif rank < 2:
                 return '#FAF04D'
-            elif rank < 4:
+            elif rank < 3:
                 return '#FFC002'
-            elif rank < 5:
+            elif rank < 4:
                 return '#F79218'
             else:
                 return '#6b4323'

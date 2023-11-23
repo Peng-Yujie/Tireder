@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}HomePage{% endblock %}
+{% block title %}Tireder{% endblock %}
 {% block content %}
 <h1>I'm so fxxking TIRED!</h1>
 
@@ -52,7 +52,7 @@
 <!-- Modal -->
 <div class="modal fade" id="recordModal" tabindex="-1" role="dialog" aria-labelledby="recordModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="recordModalLabel">Add Record</h5>
@@ -64,12 +64,20 @@
                 <form id="recordForm" method="POST">
                     <div class="form-group">
                         <label for="tired_level" class="form-label">Tired Level: </label>
+                        <div class="d-flex justify-content-between">
+                            <p style="font-size: 50px">&#128528;</p>
+                            <p style="font-size: 50px">&#128532;</p>
+                            <p style="font-size: 50px">&#128557;</p>
+                        </div>
                         <input type="range" class="form-range" min="1" max="3" id="tired_level" name="tired_level">
                         <br />
-                        <label for="add_notes">Notes: (optional)</label>
-                        <input type="text" class="form-control" id="add_notes" name="add_notes">
+                        <br />
+                        <label for="add_notes">Notes(optional):</label>
+                        <input type="text" class="form-control" id="add_notes" name="add_notes" placeholder="What happened?">
                     </div>
-                    <button type="submit" class="btn btn-success">Save</button>
+                    <div align="center">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
                 </form>
             </div>
         </div>
