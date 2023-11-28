@@ -54,6 +54,7 @@ Tireder/
 │       ├── home.html
 │       ├── login.html
 │       ├── logout.html
+│       ├── profile.html
 │       └── signup.html
 │
 ├── config.py
