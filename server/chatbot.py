@@ -15,16 +15,6 @@ def chat_view():
     return render_template("chatbot.html", user=current_user)
 
 
-# route for ending: when click on the close button, redirect to home page
-# @chatbot.route('/close', methods=['GET', 'POST'])
-# @login_required
-# def close():
-#     if request.method == 'POST':
-#         return redirect(url_for('views.home'))
-#
-#     return render_template('chatbot.html', user=current_user)
-
-
 chat = Chat()
 
 

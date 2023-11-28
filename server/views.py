@@ -51,6 +51,7 @@ def home():
 
     # Get the user's records
     user = users.find_one({"_id": ObjectId(current_user.get_id())})
+    name = user.get("username", "My friend")
     records = user.get("records", [])
     bricks = user.get("bricks", {})
     today = datetime.now().strftime("%Y-%m-%d")
@@ -58,7 +59,7 @@ def home():
     # Generate a tiredness wall
     wall = Wall(bricks).wall_list
 
-    return render_template('home.html', user=current_user, records=records, wall=wall, today=today)
+    return render_template('home.html', user=current_user, name=name, records=records, wall=wall, today=today)
 
 
 @views.route('/chat')
