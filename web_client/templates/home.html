@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% block title %}Tireder{% endblock %}
 {% block content %}
-<h1>I'm so fxxking TIRED!</h1>
+<div class="title-container text-center">
+    <h2 class="text-warning">Hi, {{ name  }}</h2>
+    <br />
+    <h1>Are You Tired?</h1>
+    <p class="text-secondary">Today: {{ today }}</p>
+    <br />
+    <br />
+</div>
 
 <!-- Print Wall -->
 <div class="wall-container wall-border">
