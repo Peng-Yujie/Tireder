@@ -36,7 +36,7 @@ class Brick:
             return '#EBEDF0'
         else:
             #  Determine the color of the brick based on the average tired level and the number of records
-            rank = 0.5 * self.record_sum / self.record_count + self.record_count * 0.5
+            rank = 0.5 * self.record_sum / self.record_count + self.record_count
             if rank == 0:
                 return '#EBEDF0'
             elif rank < 2:
