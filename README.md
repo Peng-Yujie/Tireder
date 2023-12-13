@@ -8,6 +8,11 @@ With a simple interface, Tireder helps you easily log daily feelings to gain ins
 Once registered, users can log in to submit their current feeling and have access to their past records.
 Tireder also provides a real-time chatbot to assist users in managing their stress. This project is developed using Python, MongoDB, JSON and Socket.
 
+| Home Page | Entry | Profile | Chatbot |
+| :---: | :---: | :---: | :---: |
+| <img src="./web_client/static/img/tireder_home.png" width="150px"> | <img src="./web_client/static/img/tireder_record.png" width="150px"> | <img src="./web_client/static/img/tireder_profile.png" width="150px"> | <img src="./web_client/static/img/tireder_chat.png" width="150px"> | 
+
+
 ## Features
 1. User Registration and Authentication:
    - Users can create new accounts, log in, and manage profiles 
@@ -26,6 +31,7 @@ Tireder also provides a real-time chatbot to assist users in managing their stre
 6. Database Utilization:
    - Implementation of MongoDB for data storage
    - Use of JSON for data formatting
+
 
 ## Structure
 ```
@@ -63,6 +69,7 @@ Tireder/
 └── requirements.txt
 ```
 
+
 ## Getting Started
 To run the application, follow the steps below:
 1. Clone the repository: `git clone https://github.com/Pumbaaxx/Tireder.git`
@@ -70,6 +77,7 @@ To run the application, follow the steps below:
 3. The `config.py` file contains the necessary configurations for this project. Modify the file to set your MongoDB URI, OpenAI API key, and necessary variables
 3. Run the application: `python main.py`
 4. Open your browser and go to `http://localhost:5000/`
+
 
 ## References
 APIs:
